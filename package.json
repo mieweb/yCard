@@ -5,10 +5,13 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
+    "build:npm": "tsc --project src/npm/tsconfig.json",
     "start": "node dist/lsp.js",
     "test": "jest",
+    "test:npm": "jest --config src/npm/jest.config.json",
     "lint": "eslint src/**/*.ts",
-    "generate-openapi": "npm run build && node scripts/generate-openapi.js"
+    "generate-openapi": "npm run build && node scripts/generate-openapi.js",
+    "publish:npm": "npm run build:npm && cd src/npm/dist && npm publish"
   },
   "keywords": [
     "yaml",

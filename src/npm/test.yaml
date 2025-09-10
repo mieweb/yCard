@@ -1,0 +1,6 @@
+people:
+  - uid: test-user
+    name: Test
+    surname: User
+    title: Developer
+    email: test@example.com

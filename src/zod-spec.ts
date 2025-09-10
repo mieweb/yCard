@@ -1,5 +1,15 @@
 import { z } from 'zod';
 
+// Utility function for alias resolution
+export function resolveAlias<T>(primary: T, ...aliases: (T | undefined)[]): T | undefined {
+  return primary ?? aliases.find(alias => alias != null);
+}
+
+// Utility function for string array fields with aliases
+export function stringOrArrayField() {
+  return z.union([z.string(), z.array(z.string())]).optional();
+}
+
 // Basic address schema
 const AddressSchema = z.object({
   street: z.string().optional(),
@@ -245,7 +255,17 @@ export function generateOpenAPISchema() {
       title: 'yCard Schema',
       version: '1.0.0',
       description: 'Type definitions for yCard contact management',
+      license: {
+        name: 'MIT'
+      }
     },
+    servers: [
+      {
+        url: 'https://api.example.com/v1',
+        description: 'Example API server'
+      }
+    ],
+    paths: {},
     components: {
       schemas: {
         Address: zodToJsonSchema(AddressSchema),
