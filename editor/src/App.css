@@ -1,0 +1,111 @@
+/* ADA-compliant dark mode styles */
+.dark-mode {
+  background: #23272e;
+  color: #f4f6fb;
+}
+.dark-mode .editor-main {
+  background: #2c313a;
+  color: #f4f6fb;
+}
+.dark-mode .editor-sidepanel {
+  background: #2c313a;
+  color: #f4f6fb;
+  border-left: 1px solid #444;
+}
+.dark-mode h1, .dark-mode h2 {
+  color: #ffd700;
+}
+.dark-mode a {
+  color: #ffd700;
+  text-decoration: underline;
+}
+.dark-mode button {
+  outline: 2px solid #ffd700 !important;
+  box-shadow: 0 0 0 2px #23272e;
+}
+.dark-mode button:focus {
+  outline: 3px solid #ffd700 !important;
+}
+.dark-mode pre {
+  color: #f4f6fb;
+}
+.read-the-docs {
+  color: #888;
+}
+/* Responsive editor + side panel layout */
+#root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.editor-layout {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+}
+
+
+.editor-main {
+  flex: 2;
+  min-width: 0;
+  height: 100%;
+  border-right: 1px solid #bbb;
+  background: #f5f7fa;
+  color: #222;
+}
+
+
+.editor-sidepanel {
+  flex: 1;
+  min-width: 250px;
+  max-width: 400px;
+  height: 100%;
+  padding: 1rem;
+  background: #e9edf3;
+  color: #222;
+  overflow-y: auto;
+  border-left: 1px solid #bbb;
+}
+/* ADA-compliant light mode styles */
+.editor-main h1, .editor-sidepanel h2 {
+  color: #0057b8;
+}
+.editor-main a {
+  color: #0057b8;
+  text-decoration: underline;
+}
+button {
+  outline: 2px solid #0057b8 !important;
+  box-shadow: 0 0 0 2px #f5f7fa;
+}
+button:focus {
+  outline: 3px solid #0057b8 !important;
+}
+pre {
+  color: #222;
+}
+
+@media (max-width: 700px) {
+  .editor-layout {
+    flex-direction: column;
+  }
+  .editor-main {
+    border-right: none;
+    border-bottom: 1px solid #eee;
+    min-height: 200px;
+    height: 50vh;
+  }
+  .editor-sidepanel {
+    border-left: none;
+    border-top: 1px solid #eee;
+    min-width: 0;
+    max-width: none;
+    height: 50vh;
+  }
+}
+  color: #888;
+}
