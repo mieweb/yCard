@@ -7,15 +7,57 @@ import { validateYCard, ycardFields } from './ycardValidation';
 import yaml from 'js-yaml';
 import './App.css';
 
+// Simple card component for yCard/person
+function YCardPersonCard({ person, darkMode }) {
+  if (!person) return null;
+  return (
+    <div style={{
+      background: darkMode ? '#23272e' : '#fff',
+      color: darkMode ? '#ffd700' : '#222',
+      border: '1px solid #bbb',
+      borderRadius: 8,
+      boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+      padding: '1rem',
+      marginBottom: '1rem',
+      maxWidth: 350,
+      fontSize: 16,
+    }}>
+      <div style={{ fontWeight: 700, fontSize: 20, marginBottom: 4 }}>{person.name || person.nombre || 'No Name'} {person.surname || person.apellido || ''}</div>
+      {person.title && <div style={{ fontStyle: 'italic', marginBottom: 4 }}>{person.title}</div>}
+      {person.org && <div style={{ marginBottom: 4 }}>Org: {person.org}</div>}
+      {person.email && <div style={{ marginBottom: 4 }}>Email: {Array.isArray(person.email) ? person.email.join(', ') : person.email}</div>}
+      {person.phone && <div style={{ marginBottom: 4 }}>Phone: {Array.isArray(person.phone) ? person.phone.map(p => typeof p === 'string' ? p : p.number).join(', ') : typeof person.phone === 'string' ? person.phone : person.phone.number}</div>}
+      {person.address && <div style={{ marginBottom: 4 }}>
+        Address: {[person.address.street, person.address.city, person.address.state, person.address.postal_code, person.address.country].filter(Boolean).join(', ')}
+      </div>}
+      {person.manager && <div style={{ marginBottom: 4 }}>Manager: {person.manager}</div>}
+      {person.jobs && Array.isArray(person.jobs) && person.jobs.length > 0 && (
+        <div style={{ marginBottom: 4 }}>
+          Jobs:
+          <ul style={{ margin: 0, paddingLeft: 20 }}>
+            {person.jobs.map((job, i) => <li key={i}>{job.role || job.title || 'No Role'} {job.org && `@ ${job.org}`}</li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function App() {
   const [code, setCode] = useState('// Type your yCard or vCard here...');
   const [lspOutput, setLspOutput] = useState('LSP output will appear here.');
+  const [cardData, setCardData] = useState(null);
   const prefersDark = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   const [darkMode, setDarkMode] = useState(prefersDark);
 
   // Real validation handler
   const handleEditorChange = (value) => {
     setCode(value);
+    let parsed = null;
+    try {
+      parsed = yaml.load(value);
+    } catch {}
+    setCardData(parsed);
     const errors = validateYCard(value, yaml);
     if (errors.length === 0) {
       setLspOutput('No errors. yCard is valid!');
@@ -88,7 +130,19 @@ function App() {
       <div className="editor-sidepanel" style={darkMode ? { background: darkPanel, color: darkText, borderLeft: '1px solid #444' } : {}}>
         <h2 style={darkMode ? { color: darkAccent } : {}}>LSP Panel</h2>
         <pre style={{ whiteSpace: 'pre-wrap', color: darkMode ? darkText : undefined }}>{lspOutput}</pre>
+        {cardData && (
+          <div style={{ marginTop: '2rem' }}>
+            <h2 style={darkMode ? { color: darkAccent } : {}}>Preview Card</h2>
+            {Array.isArray(cardData.people)
+              ? cardData.people.map((person, idx) => <YCardPersonCard key={idx} person={person} darkMode={darkMode} />)
+              : (cardData.uid || cardData.name || cardData.surname)
+                ? <YCardPersonCard person={cardData} darkMode={darkMode} />
+                : <div style={{ color: '#888' }}>No person data to preview.</div>
+            }
+          </div>
+        )}
       </div>
+}
     </div>
   );
 }
