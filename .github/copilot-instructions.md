@@ -8,6 +8,10 @@ This document provides development guidance for the yCard project, focusing on i
 
 ```
 yCard/
+├── .github/
+│   ├── workflows/
+│   │   └── ci.yml          # GitHub Actions CI/CD pipeline
+│   └── copilot-instructions.md  # Development guide and implementation details
 ├── src/
 │   ├── zod-spec.ts      # Zod schema definitions with aliases & i18n
 │   ├── parser.ts        # Reference parser using Zod validation
@@ -17,8 +21,7 @@ yCard/
 ├── openapi.yaml         # Auto-generated OpenAPI spec (DO NOT EDIT)
 ├── package.json         # Dependencies and build scripts
 ├── tsconfig.json        # TypeScript configuration
-├── README.md           # Project documentation
-└── copilot-instructions.md  # Development guide and implementation details
+└── README.md           # Project documentation
 ```
 
 ## Implementation Status

@@ -80,63 +80,76 @@ connection.onInitialized(() => {
   }
 });
 
-// The example settings
-interface ExampleSettings {
-  maxNumberOfProblems: number;
-}
-
 // The global settings, used when the `workspace/configuration` request is not supported by the client.
 // Please note that this is not the case when using this server with the client provided in this example
 // but could happen with other clients.
-const defaultSettings: ExampleSettings = { maxNumberOfProblems: 1000 };
-let globalSettings: ExampleSettings = defaultSettings;
+// const defaultSettings: ExampleSettings = { maxNumberOfProblems: 1000 };
+// let globalSettings: ExampleSettings = defaultSettings;
 
 // Cache the settings of all open documents
-const documentSettings: Map<string, Thenable<ExampleSettings>> = new Map();
+// const documentSettings: Map<string, Thenable<ExampleSettings>> = new Map();
 
-connection.onDidChangeConfiguration(change => {
+connection.onDidChangeConfiguration(_change => {
   if (hasConfigurationCapability) {
     // Reset all cached document settings
-    documentSettings.clear();
+    // documentSettings.clear();
   } else {
-    globalSettings = <ExampleSettings>(
-      (change.settings.languageServerExample || defaultSettings)
-    );
+    // globalSettings = <ExampleSettings>(
+    //   (change.settings.languageServerExample || defaultSettings)
+    // );
+  }
+
+  // Revalidate all open text documents
+  documents.all().forEach(validateTextDocument);
+});
+// let globalSettings: ExampleSettings = defaultSettings;
+
+// Cache the settings of all open documents
+// const documentSettings: Map<string, Thenable<ExampleSettings>> = new Map();
+
+connection.onDidChangeConfiguration(_change => {
+  if (hasConfigurationCapability) {
+    // Reset all cached document settings
+    // documentSettings.clear();
+  } else {
+    // globalSettings = <ExampleSettings>(
+    //   (_change.settings.languageServerExample || defaultSettings)
+    // );
   }
 
   // Revalidate all open text documents
   documents.all().forEach(validateTextDocument);
 });
 
-function getDocumentSettings(resource: string): Thenable<ExampleSettings> {
-  if (!hasConfigurationCapability) {
-    return Promise.resolve(globalSettings);
-  }
-  let result = documentSettings.get(resource);
-  if (!result) {
-    result = connection.workspace.getConfiguration({
-      scopeUri: resource,
-      section: 'languageServerExample'
-    });
-    documentSettings.set(resource, result);
-  }
-  return result;
-}
+// function getDocumentSettings(resource: string): Thenable<ExampleSettings> {
+//   if (!hasConfigurationCapability) {
+//     return Promise.resolve(globalSettings);
+//   }
+//   let result = documentSettings.get(resource);
+//   if (!result) {
+//     result = connection.workspace.getConfiguration({
+//       scopeUri: resource,
+//       section: 'languageServerExample'
+//     });
+//     documentSettings.set(resource, result);
+//   }
+//   return result;
+// }
 
 // Only keep settings for open documents
-documents.onDidClose(e => {
-  documentSettings.delete(e.document.uri);
+documents.onDidClose(_e => {
+  // documentSettings.delete(e.document.uri);
 });
 
 // The content of a text document has changed. This event is emitted
 // when the text document first opened or when its content has changed.
-documents.onDidChangeContent(change => {
-  validateTextDocument(change.document);
+documents.onDidChangeContent(_change => {
+  validateTextDocument(_change.document);
 });
 
 async function validateTextDocument(textDocument: TextDocument): Promise<void> {
   // In this simple example we get the settings for every validate run.
-  const settings = await getDocumentSettings(textDocument.uri);
+  // const settings = await getDocumentSettings(textDocument.uri);
 
   const parser = new YCardParser();
   const text = textDocument.getText();

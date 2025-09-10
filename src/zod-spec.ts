@@ -19,7 +19,7 @@ const PhoneSchema = z.union([
 ]);
 
 // Job schema for multi-hat support
-const JobSchema = z.object({
+export const JobSchema = z.object({
   role: z.string().optional(),
   title: z.string().optional(), // Alias for role
   fte: z.number().min(0).max(1).default(1),
