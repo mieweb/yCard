@@ -8,6 +8,7 @@ This document provides development guidance for the yCard project, focusing on i
 
 ```
 yCard/
+├── .attic/               # Historical/dead code archive
 ├── .github/
 │   ├── workflows/
 │   │   └── ci.yml          # GitHub Actions CI/CD pipeline
@@ -71,6 +72,35 @@ yCard/
 3. Validate parsing with example files
 4. Check auto-completion and diagnostics
 
+## Code Quality Principles
+
+### 🎯 DRY (Don't Repeat Yourself)
+- **Never duplicate code**: If you find yourself copying code, extract it into a reusable function
+- **Single source of truth**: Each piece of knowledge should have one authoritative representation
+- **Refactor mercilessly**: When you see duplication, eliminate it immediately
+- **Shared utilities**: Common patterns should be abstracted into utility functions
+
+### 💋 KISS (Keep It Simple, Stupid)
+- **Simple solutions**: Prefer the simplest solution that works
+- **Avoid over-engineering**: Don't add complexity for hypothetical future needs
+- **Clear naming**: Functions and variables should be self-documenting
+- **Small functions**: Break down complex functions into smaller, focused ones
+- **Readable code**: Code should be obvious to understand at first glance
+
+### 🔄 Refactoring Guidelines
+- **Continuous improvement**: Refactor as you work, not as a separate task
+- **Safe refactoring**: Always run tests before and after refactoring
+- **Incremental changes**: Make small, safe changes rather than large rewrites
+- **Preserve behavior**: Refactoring should not change external behavior
+- **Code reviews**: All refactoring should be reviewed for correctness
+
+### ⚰️ Dead Code Management
+- **Immediate removal**: Delete unused code immediately when identified
+- **Historical preservation**: Move significant dead code to `.attic/` directory with context
+- **Documentation**: Include comments explaining why code was moved to attic
+- **Regular cleanup**: Review and clean attic directory periodically
+- **No accumulation**: Don't let dead code accumulate in active codebase
+
 ## Key Implementation Details
 
 ### Alias Resolution Strategy
@@ -104,6 +134,35 @@ yCard/
 - `scripts/generate-openapi.js` - Generation script
 - `package.json` - Dependencies and scripts
 - `tsconfig.json` - TypeScript configuration
+
+### 🗂️ ARCHIVAL (Historical code)
+- `.attic/` - Dead code archive with historical context
+  - Include comments explaining why code was moved
+  - Preserve git history when possible
+  - Regular cleanup of truly obsolete code
+
+### Dead Code Workflow
+1. **Identify**: Find unused functions, imports, or modules
+2. **Evaluate**: Determine if code has historical significance
+3. **Document**: Add comments explaining the removal context
+4. **Archive**: Move to `.attic/` if historically significant
+5. **Delete**: Remove immediately if truly obsolete
+6. **Test**: Ensure removal doesn't break anything
+
+### When to Archive vs Delete
+- **🗂️ Archive to `.attic/`**:
+  - Complex algorithms that might be reused
+  - Alternative implementations of current features
+  - Code with significant architectural decisions
+  - Experimental features that were abandoned
+  - Legacy compatibility code
+
+- **🗑️ Delete immediately**:
+  - Simple utility functions with no dependencies
+  - Obsolete configuration or comments
+  - Unused imports or variables
+  - Dead code with no historical value
+  - Code that violates current architectural decisions
 
 ## Quality Assurance
 
@@ -154,6 +213,22 @@ yCard/
 - Consider plugin architecture for custom validations
 - Explore WebAssembly for cross-platform Tree-Sitter integration
 
+## Quick Reference
+
+### Code Quality Checklist
+- [ ] **DRY**: No code duplication - extracted reusable functions?
+- [ ] **KISS**: Simplest solution that works?
+- [ ] **Naming**: Self-documenting function/variable names?
+- [ ] **Size**: Functions small and focused?
+- [ ] **Dead Code**: Removed or archived appropriately?
+
+### Before Committing
+1. Run tests: `npm test`
+2. Check for unused code: Review imports and functions
+3. Verify DRY: Look for duplicated logic
+4. Simplify: Can any function be made simpler?
+5. Archive/Delete: Handle any dead code appropriately
+
 ---
 
-*This document focuses on implementation details. For project overview, examples, and general usage, see README.md.*
+*Remember: Code is read far more than it's written. Prioritize clarity and maintainability over cleverness.*
