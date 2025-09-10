@@ -1,7 +1,7 @@
 // Example usage of the ycard package
 // Run this after building: npm run build && node dist/example.js
 
-import { parseYCard, yCardToVCard, stringifyVCard, validateYCard } from './index';
+import { parseYCard, yCardToVCard, stringifyVCard, validateYCard } from './src/index';
 
 const sampleYaml = `
 people:
