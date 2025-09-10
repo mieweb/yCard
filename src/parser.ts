@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import * as yaml from 'js-yaml';
-import { YCardSchema, PersonSchema, type YCard, type Person } from './zod-spec';
+import { YCardSchema, PersonSchema, type YCard, type Person } from './ycard-schema';
 
 export class YCardParser {
   private schema: z.ZodSchema;

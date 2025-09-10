@@ -1,4 +1,4 @@
-import { PersonSchema, YCardSchema, JobSchema } from '../src/zod-spec';
+import { PersonSchema, YCardSchema, JobSchema } from '../src/ycard-schema';
 
 describe('Zod Schema Tests', () => {
   describe('PersonSchema', () => {
