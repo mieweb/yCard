@@ -1,0 +1,9 @@
+extends:
+  - recommended
+
+rules:
+  # Disable rules that don't apply to schema-only OpenAPI specs
+  struct: off  # Allow missing paths field
+  no-empty-servers: off  # Allow missing servers field
+  info-license: off  # Allow missing license field
+  no-unused-components: off  # Allow unused schema components (they're for reference)

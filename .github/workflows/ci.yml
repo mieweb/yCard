@@ -41,14 +41,13 @@ jobs:
 
     - name: Validate OpenAPI spec
       run: |
-        # Check that openapi.yaml was generated and is valid YAML
+        # Check that openapi.yaml was generated
         if [ ! -f "openapi.yaml" ]; then
           echo "openapi.yaml not found!"
           exit 1
         fi
-        # Basic YAML validation
-        npm install -g js-yaml-cli
-        js-yaml-cli openapi.yaml > /dev/null
+        # Validate OpenAPI spec using Redocly CLI
+        npx @redocly/cli lint openapi.yaml
 
     - name: Check generated files are up to date
       run: |
