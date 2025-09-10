@@ -1,0 +1,48 @@
+{
+  "name": "ycard",
+  "version": "1.0.0",
+  "description": "Convert between yCard (YAML) and vCard formats with clean APIs for one-shot and stream/batch use cases",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "ycard": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "keywords": [
+    "ycard",
+    "vcard",
+    "yaml",
+    "contacts",
+    "conversion",
+    "ldap",
+    "organization"
+  ],
+  "author": "mieweb",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mieweb/yCard.git"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/js-yaml": "^4.0.5",
+    "@types/node": "^20.0.0",
+    "jest": "^29.0.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
