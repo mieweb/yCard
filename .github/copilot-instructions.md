@@ -87,6 +87,12 @@ yCard/
 - **Small functions**: Break down complex functions into smaller, focused ones
 - **Readable code**: Code should be obvious to understand at first glance
 
+### 🧹 Folder Philosophy
+- **Clear purpose**: Every folder should have a main thing that anchors its contents.
+- **No junk drawers**: Don’t leave loose files without context or explanation.
+- **Explain relationships**: If it’s not elegantly obvious how files fit together, add a README or note.
+- **Immediate clarity**: Opening a folder should make its organizing principle clear at a glance.
+
 ### 🔄 Refactoring Guidelines
 - **Continuous improvement**: Refactor as you work, not as a separate task
 - **Safe refactoring**: Always run tests before and after refactoring
