@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import { parseYCard, stringifyYCard, yCardToVCard, stringifyVCard, vCardToYCard } from './index';
+import { parseYCard, stringifyYCard, yCardToVCard, stringifyVCard, vCardToYCard } from '../src/index';
 
 describe('yCard Package', () => {
   const sampleYaml = `
@@ -39,7 +39,7 @@ people:
     const cards = yCardToVCard(org);
     const vcf = stringifyVCard(cards);
 
-    const parsedCards = require('./parsers/vcard').parseVCard(vcf);
+    const parsedCards = require('../src/parsers/vcard').parseVCard(vcf);
     const convertedOrg = vCardToYCard(parsedCards);
 
     expect(convertedOrg.people).toHaveLength(1);
