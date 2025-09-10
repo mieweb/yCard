@@ -5,7 +5,7 @@ const yaml = require('js-yaml');
 const fs = require('fs');
 
 const spec = generateOpenAPISchema();
-s
+
 const commentBlock = `# =============================================================================
 # yCard OpenAPI Schema - AUTO-GENERATED FILE
 # =============================================================================
