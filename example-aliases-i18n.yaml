@@ -1,0 +1,139 @@
+people:
+  - uid: alice
+    # Core fields with aliases
+    name: "Alice Smith"
+    surname: "Smith"
+    title: "Chief Executive Officer"
+    email: "alice@example.com"
+    org: "Acme Corp"
+    org_unit: "Executive"
+    manager: null
+
+    # Spanish aliases
+    nombre: "Alicia Smith"  # Alternative name
+    apellido: "Smith"       # Alternative surname
+    puesto: "Directora Ejecutiva"  # Alternative title
+    correo: "alice@ejemplo.com"     # Alternative email
+    jefe: null               # Alternative manager
+
+    # Additional aliases
+    displayName: "Alice CEO"
+    lastName: "Smith"
+    role: "CEO"
+    mail: "alice@acme.com"
+    organization: "Acme Corporation"
+    company: "Acme Inc"
+    department: "Executive Team"
+    ou: "Executive"
+    boss: null
+
+    # Contact information with aliases
+    phone:
+      - type: "work"
+        number: "+1-555-0101"
+      - "555-0102"  # Simple string format
+    tel:
+      - type: "mobile"
+        number: "+1-555-0103"
+
+    # Address with aliases
+    address:
+      street: "123 Main St"
+      city: "Anytown"
+      state: "CA"
+      postal_code: "12345"
+      country: "USA"
+    adr:
+      street: "456 Business Ave"
+      city: "Anytown"
+      state: "CA"
+      postal_code: "12346"
+      country: "USA"
+
+    # Multi-hat roles
+    jobs:
+      - role: "CEO"
+        title: "Chief Executive Officer"  # Alias for role
+        fte: 1.0
+        manager: null
+        jefe: null  # Spanish alias for manager
+        org_unit: "Executive"
+        primary: true
+      - role: "Board Member"
+        fte: 0.1
+        manager: null
+        dotted: []
+        org_unit: "Board"
+        primary: false
+
+    # Internationalization
+    i18n:
+      displayName:
+        en: "Alice Smith"
+        es: "Alicia Smith"
+        ja: "アリス・スミス"
+        fr: "Alice Smith"
+      name:
+        en: "Alice Smith"
+        es: "Alicia Smith"
+        ja: "アリス・スミス"
+      title:
+        en: "Chief Executive Officer"
+        es: "Directora Ejecutiva"
+        ja: "最高経営責任者"
+        fr: "Directrice générale"
+      puesto:
+        es: "Directora Ejecutiva"
+      org:
+        en: "Acme Corp"
+        es: "Corporación Acme"
+        ja: "アクミ社"
+      org_unit:
+        en: "Executive"
+        es: "Ejecutivo"
+        ja: "経営陣"
+      surname:
+        en: "Smith"
+        es: "Smith"
+        ja: "スミス"
+      apellido:
+        es: "Smith"
+
+  - uid: bob
+    # Using Spanish aliases primarily
+    nombre: "Roberto Johnson"
+    apellido: "Johnson"
+    puesto: "Vicepresidente de Ingeniería"
+    correo: "bob@ejemplo.com"
+    jefe: alice
+    org: "Acme Corp"
+
+    # Internationalization
+    i18n:
+      displayName:
+        en: "Bob Johnson"
+        es: "Roberto Johnson"
+        ja: "ボブ・ジョンソン"
+      title:
+        en: "VP of Engineering"
+        es: "VP de Ingeniería"
+        ja: "エンジニアリング担当副社長"
+
+  - uid: carol
+    # Using Japanese aliases
+    name: "Carol Tanaka"
+    surname: "Tanaka"
+    title: "Senior Developer"
+    email: "carol@example.com"
+    上司: alice  # Japanese alias for manager
+    org: "Acme Corp"
+    org_unit: "Engineering"
+
+    # Internationalization
+    i18n:
+      displayName:
+        en: "Carol Tanaka"
+        ja: "田中 キャロル"
+      title:
+        en: "Senior Developer"
+        ja: "シニア開発者"

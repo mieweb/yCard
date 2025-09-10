@@ -180,6 +180,35 @@ conformance/    # Valid & invalid fixtures
 **yCard = YAML for People.**
 Simple for humans. Powerful for systems.
 
+---
+
+## 🛠️ Development
+
+### Prerequisites
+```bash
+npm install
+```
+
+### Build
+```bash
+npm run build
+```
+
+### Generate OpenAPI Schema
+The OpenAPI schema is automatically generated from the Zod schema:
+```bash
+npm run generate-openapi
+```
+This will update `openapi.yaml` with the latest type definitions from the Zod schema.
+
+### Development Scripts
+- `npm run build` - Compile TypeScript
+- `npm run start` - Start the LSP server
+- `npm run test` - Run tests
+- `npm run lint` - Lint the code
+- `npm run generate-openapi` - Generate OpenAPI schema from Zod
+
+---
 
 ## the chat
 https://chatgpt.com/share/68c10e2e-1858-8004-824c-a8d2cd006305
