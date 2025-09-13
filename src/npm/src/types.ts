@@ -1,5 +1,5 @@
 // Re-export everything from the main project to avoid duplication
-export * from '../../zod-spec';
+export * from '../../ycard-schema';
 
 // Also export the utility functions explicitly for convenience
-export { resolveAlias, stringOrArrayField } from '../../zod-spec';
+export { resolveAlias, stringOrArrayField } from '../../ycard-schema';
