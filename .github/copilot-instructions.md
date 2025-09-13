@@ -14,7 +14,7 @@ yCard/
 │   │   └── ci.yml          # GitHub Actions CI/CD pipeline
 │   └── copilot-instructions.md  # Development guide and implementation details
 ├── src/
-│   ├── zod-spec.ts      # Zod schema definitions with aliases & i18n
+│   ├── ycard-schema.ts      # Zod schema definitions with aliases & i18n
 │   ├── parser.ts        # Reference parser using Zod validation
 │   └── lsp.ts           # Language Server Protocol implementation
 ├── scripts/
@@ -44,7 +44,7 @@ yCard/
 ## Development Workflow
 
 ### Adding New Fields or Aliases
-1. **Update Schema** (`src/zod-spec.ts`):
+1. **Update Schema** (`src/ycard-schema.ts`):
    ```typescript
    // Add new field to PersonSchema
    newField: z.string().optional(),
@@ -134,7 +134,7 @@ yCard/
 - `dist/` - Compiled TypeScript output
 
 ### 🟢 SAFE TO EDIT (Source files)
-- `src/zod-spec.ts` - Schema definitions and transforms
+- `src/ycard-schema.ts` - Schema definitions and transforms
 - `src/parser.ts` - Parsing logic and validation
 - `src/lsp.ts` - LSP features and completions
 - `scripts/generate-openapi.js` - Generation script
@@ -202,7 +202,7 @@ yCard/
 1. Clean build: `rm -rf dist && npm run build`
 2. Check dependencies: `npm ls`
 3. Test individual components: `node dist/parser.js`
-4. Validate schema: `node -e "require('./dist/zod-spec').PersonSchema.parse({uid: 'test'})"`
+4. Validate schema: `node -e "require('./dist/ycard-schema').PersonSchema.parse({uid: 'test'})"`
 
 ## Future Enhancements
 
