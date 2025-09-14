@@ -14,6 +14,7 @@ with support for **aliases**, **internationalization (i18n)**, and even **multi-
 - **Flexible**: Supports "multi-hat" people (jobs array) and dotted-line reporting.
 - **Internationalized**: Aliases and i18n fields (`nombre`, `apellido`, `上司`) are supported.
 - **Validated**: Zod schema + OpenAPI, with an LSP that checks as you type.
+- **RFC Compliant**: Uses `vcard4` library for full vCard 4.0 support including fuzzy dates.
 - **Versionable**: Easy to keep in Git and track org changes.
 
 ---
@@ -87,7 +88,7 @@ people:
 
 ## 🔄 Export Bridges
 
-* **yCard → vCard**
+* **yCard → vCard** (with fuzzy date support)
 
   ```vcf
   BEGIN:VCARD
@@ -97,6 +98,7 @@ people:
   EMAIL;type=work:jordan@example.com
   TITLE:Head of Developer Relations
   ORG:Acme Corp;Engineering
+  BDAY:--05-15
   X-FTE:0.5
   X-MANAGER-UID:bob
   X-DOTTED-UID:eve
@@ -106,6 +108,8 @@ people:
   X-MANAGER-UID:victor
   END:VCARD
   ```
+
+  > **Note**: Supports RFC 6350 fuzzy date formats (`YYYY`, `--MM-DD`, `1985-05`, etc.) for birthdays and anniversaries. See [FUZZY_DATES.md](./FUZZY_DATES.md) for details.
 
 * **yCard → LDIF**
 
