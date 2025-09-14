@@ -163,7 +163,13 @@ function convertParsedVCardToVCard(parsedVCard: any): VCard {
   // Handle CATEGORIES
   const categoriesValue = getPropertyValue('categories');
   if (categoriesValue) {
-    card.categories = categoriesValue.split(',').map(cat => cat.trim());
+    if (Array.isArray(categoriesValue)) {
+      // Handle vcard4 array format
+      card.categories = categoriesValue;
+    } else if (typeof categoriesValue === 'string') {
+      // Handle string format (fallback)
+      card.categories = categoriesValue.split(',').map(cat => cat.trim());
+    }
   }
 
   return card;
