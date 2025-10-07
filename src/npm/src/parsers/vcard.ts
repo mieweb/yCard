@@ -64,12 +64,14 @@ export function parseVCard(vcfString: string): VCard[] {
  * @param cards - Array of VCard objects to serialize
  * @returns vCard 4.0 formatted string
  */
-export function stringifyVCard(cards: VCard[]): string {
+export function stringifyVCard(cards: VCard[], version: '2.1' | '3.0' | '4.0' = '4.0'): string {
   return cards.map(card => {
-    const lines = ['BEGIN:VCARD', 'VERSION:4.0'];
+    const lines = ['BEGIN:VCARD', `VERSION:${version}`];
 
-    // UID
-    if (card.uid) lines.push(`UID:${card.uid}`);
+    // UID (not in v2.1)
+    if (card.uid && version !== '2.1') {
+      lines.push(`UID:${card.uid}`);
+    }
 
     // Full name
     if (card.fn) lines.push(`FN:${escapeVCardValue(card.fn)}`);
@@ -90,24 +92,51 @@ export function stringifyVCard(cards: VCard[]): string {
     // Email addresses
     if (card.email) {
       card.email.forEach(email => {
-        const type = email.type ? `;TYPE=${email.type}` : '';
-        lines.push(`EMAIL${type}:${email.value}`);
+        if (version === '2.1') {
+          // v2.1 format: EMAIL;INTERNET;HOME:email@example.com
+          const type = email.type ? `;${email.type.toUpperCase()}` : '';
+          lines.push(`EMAIL;INTERNET${type}:${email.value}`);
+        } else if (version === '3.0') {
+          // v3.0 format: EMAIL;TYPE=HOME,INTERNET:email@example.com
+          const type = email.type ? `;TYPE=${email.type.toUpperCase()}` : '';
+          lines.push(`EMAIL${type}:${email.value}`);
+        } else {
+          // v4.0 format: EMAIL;TYPE=home:email@example.com (lowercase)
+          const type = email.type ? `;TYPE=${email.type.toLowerCase()}` : '';
+          lines.push(`EMAIL${type}:${email.value}`);
+        }
       });
     }
 
     // Phone numbers
     if (card.tel) {
       card.tel.forEach(tel => {
-        const type = tel.type ? `;TYPE=${tel.type}` : '';
-        lines.push(`TEL${type}:${tel.value}`);
+        if (version === '2.1') {
+          const type = tel.type ? `;${tel.type.toUpperCase()}` : '';
+          lines.push(`TEL${type}:${tel.value}`);
+        } else if (version === '3.0') {
+          const type = tel.type ? `;TYPE=${tel.type.toUpperCase()}` : '';
+          lines.push(`TEL${type}:${tel.value}`);
+        } else {
+          const type = tel.type ? `;TYPE=${tel.type.toLowerCase()}` : '';
+          lines.push(`TEL${type}:${tel.value}`);
+        }
       });
     }
 
     // Addresses
     if (card.adr) {
       card.adr.forEach(adr => {
-        const type = adr.type ? `;TYPE=${adr.type}` : '';
-        lines.push(`ADR${type}:${adr.value.map(escapeVCardValue).join(';')}`);
+        if (version === '2.1') {
+          const type = adr.type ? `;${adr.type.toUpperCase()}` : '';
+          lines.push(`ADR${type}:${adr.value.map(escapeVCardValue).join(';')}`);
+        } else if (version === '3.0') {
+          const type = adr.type ? `;TYPE=${adr.type.toUpperCase()}` : '';
+          lines.push(`ADR${type}:${adr.value.map(escapeVCardValue).join(';')}`);
+        } else {
+          const type = adr.type ? `;TYPE=${adr.type.toLowerCase()}` : '';
+          lines.push(`ADR${type}:${adr.value.map(escapeVCardValue).join(';')}`);
+        }
       });
     }
 

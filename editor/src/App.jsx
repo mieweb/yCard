@@ -7,9 +7,32 @@ import { validateYCard, ycardFields } from './ycardValidation';
 import yaml from 'js-yaml';
 import './App.css';
 
+import { yCardPersonToVCard } from '../../src/npm/converters';
+import { stringifyVCard } from '../../src/npm/parsers/vcard';
+
 // Simple card component for yCard/person
 function YCardPersonCard({ person, darkMode }) {
   if (!person) return null;
+  
+  // Function to download person data as vCard (.vcf)
+  const handleDownload = () => {
+    // Use existing converter functions
+    const vCardObject = yCardPersonToVCard(person);
+    const vcfContent = stringifyVCard([vCardObject]);
+    
+    // Download the file
+    const blob = new Blob([vcfContent], { type: 'text/vcard;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    const filename = `${person.name || person.nombre || 'person'}_${person.surname || person.apellido || 'card'}.vcf`;
+    link.download = filename.replace(/\s+/g, '_');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+  
   return (
     <div style={{
       background: darkMode ? '#23272e' : '#fff',
@@ -39,6 +62,25 @@ function YCardPersonCard({ person, darkMode }) {
           </ul>
         </div>
       )}
+      <button
+        onClick={handleDownload}
+        style={{
+          marginTop: '0.75rem',
+          background: darkMode ? '#ffd700' : '#007bff',
+          color: darkMode ? '#23272e' : '#fff',
+          border: 'none',
+          padding: '0.5em 1em',
+          borderRadius: 4,
+          cursor: 'pointer',
+          fontWeight: 600,
+          fontSize: 14,
+          width: '100%',
+          outline: darkMode ? '2px solid #ffd700' : '2px solid #007bff'
+        }}
+        tabIndex={0}
+      >
+         Download Card
+      </button>
     </div>
   );
 }
@@ -142,7 +184,7 @@ function App() {
           </div>
         )}
       </div>
-}
+
     </div>
   );
 }

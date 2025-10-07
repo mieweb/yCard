@@ -9,14 +9,12 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
-    "declarationMap": true,
     "sourceMap": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "**/*.ts",
-    "../**/*.ts"
+    "**/*.ts"
   ],
   "exclude": [
     "node_modules",
